@@ -36,8 +36,8 @@ export const UserAuthForm = ({className, ...props}: Props) => {
 
   return (
     <div className={cn("flex justify-center", className)} {...props}>
-      <Button onClick={loginWithGoogle} isLoading={isLoading} size="sm" className="w-1/2 flex gap-1">
-        {isLoading ? <Loader2/> : <Icons.google className="w-6 h-6"/>}
+      <Button onClick={loginWithGoogle} isLoading={isLoading} size="sm" className="w-full max-w-xs flex gap-1">
+        {isLoading ? null : <Icons.google className="w-6 h-6"/>}
         Google
       </Button>
     </div>

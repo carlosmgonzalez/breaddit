@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
           image: token.picture,
           username: token.username
         }
-      }
+      };
 
       return session;
     },

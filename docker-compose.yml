@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysqldb-breadit
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: derecha5132
+      MYSQL_DATABASE: breadit
+    volumes:
+      - ./database:/var/lib/mysql

@@ -3,7 +3,6 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { Icons } from "../Icons";
 import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva(
@@ -15,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 outline outline-1 outline-zinc-300",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         subtle:
@@ -44,37 +43,23 @@ export interface ButtonProps
   isLoading?: boolean
 }
 
-// const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-//   ({ className, children, variant, size, isLoading, asChild = false, ...props }, ref) => {
-//     const Comp = asChild ? Slot : "button"
-//     return (
-//       <Comp
-//         className={cn(buttonVariants({ variant, size, className }))}
-//         disabled={isLoading}
-//         ref={ref}
-//         {...props}
-//       >
-//         {isLoading ? <Icons.loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
-//         {children}
-//       </Comp>
-//     )
-//   }
-// )
-
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, variant, isLoading, size, ...props }, ref) => {
+  ({ className, children, variant, size, isLoading, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
     return (
-      <button
+      <Comp
         className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
         disabled={isLoading}
+        ref={ref}
         {...props}
       >
+        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
         {children}
-      </button>
+      </Comp>
     )
   }
 )
+
 Button.displayName = "Button"
 
 export { Button, buttonVariants }

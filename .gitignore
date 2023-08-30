@@ -7,8 +7,6 @@
 
 # testing
 /coverage
-/database
-docker-compose.yml
 
 # next.js
 /.next/
@@ -16,6 +14,7 @@ docker-compose.yml
 
 # production
 /build
+database
 
 # misc
 .DS_Store
