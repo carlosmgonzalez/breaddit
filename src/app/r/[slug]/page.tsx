@@ -23,7 +23,7 @@ export default async function page({params}: {params: {slug: string}}) {
           comments: true,
           subreddit: true
         },
-        take: 10
+        take: INFINITE_SCROLLING_PAGINATION_RESULTS
       }
     }
   });

@@ -15,7 +15,7 @@ export const Navbar = async () => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1">
           <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"/>
-          <p className="hidden text-zinc-700 text-sm font-medium md:block">Breadit</p>
+          <p className="hidden text-zinc-700 text-sm font-medium md:block">Breaddit</p>
         </Link>
         
         {/* Sing in - Auth */}

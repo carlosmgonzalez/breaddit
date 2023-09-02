@@ -3,7 +3,7 @@
 import { ExtendedPost } from "@/types/db";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {useIntersection} from "@mantine/hooks";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -18,6 +18,7 @@ interface Props {
 export const PostFeed = ({initialPosts, subredditName}: Props) => {
 
   const lastPostRef = useRef<HTMLElement>(null);
+  
   const {ref, entry} = useIntersection({
     root: lastPostRef.current,
     threshold: 1
@@ -43,6 +44,12 @@ export const PostFeed = ({initialPosts, subredditName}: Props) => {
     },
   );
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    };
+  },[entry, fetchNextPage]);
+
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts
 
   return (
@@ -51,7 +58,7 @@ export const PostFeed = ({initialPosts, subredditName}: Props) => {
         posts.map((post, index) => {
           const votesAmt = post.votes.reduce((acc, vote) => {
             if(vote.type === "UP") return acc + 1;
-            if (vote.type === "DOWN") return acc + 1;
+            if (vote.type === "DOWN") return acc - 1;
             return acc
           }, 0);
 
@@ -62,11 +69,23 @@ export const PostFeed = ({initialPosts, subredditName}: Props) => {
           if (index === posts.length - 1) {
             return (
               <li key={post.id} ref={ref}>
-                <Post key={post.id} subredditName={post.subreddit.name} post={post} commentAmt={commentAmt}/>
+                <Post key={post.id} 
+                  subredditName={post.subreddit.name} 
+                  post={post} commentAmt={commentAmt} 
+                  votesAmt={votesAmt} 
+                  currentVote={currentVote}
+                />
               </li>
             )
           } else {
-            return <Post key={post.id} subredditName={post.subreddit.name} post={post} commentAmt={commentAmt}/>
+            return (
+              <Post key={post.id} 
+                subredditName={post.subreddit.name} 
+                post={post} commentAmt={commentAmt} 
+                votesAmt={votesAmt} 
+                currentVote={currentVote}
+              />
+            )
           };
         })
       }
