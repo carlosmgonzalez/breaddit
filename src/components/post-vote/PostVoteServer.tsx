@@ -17,7 +17,7 @@ export const PostVoteServer = async ({postId, initialVotesAmt, initialVote, getD
   const session = await getServerSession();
 
   let _votesAmt: number = 0;
-  let _currentVote: VoteType | null | undefined;
+  let _currentVote: Vote["type"] | null | undefined = undefined;
 
   if (getData) {
     const post = await getData();
@@ -29,17 +29,19 @@ export const PostVoteServer = async ({postId, initialVotesAmt, initialVote, getD
       return acc
     }, 0);
 
-    _currentVote = post.votes.find(vote => vote.userId === session?.user.id)?.type;
+    _currentVote = post.votes.find(vote => vote.userId === session?.user?.id)?.type;
+
   } else {
-    _votesAmt = initialVotesAmt;
+    _votesAmt = initialVotesAmt!;
     _currentVote = initialVote;
   };
 
   return (
-    <PostVoteClient postId={postId} 
-    initialVotesAmt={_votesAmt} 
-    initialVote={_currentVote} 
-    className="flex sm:flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0"
+    <PostVoteClient 
+      postId={postId} 
+      initialVotesAmt={_votesAmt} 
+      initialVote={_currentVote} 
+      className="flex sm:flex-col gap-4 sm:gap-0 sm:w-20 sm:pb-0"
     />
   );
 };

@@ -3,6 +3,7 @@ import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/button";
 import { getAuthSession } from "@/lib/auth";
 import { UserAccountNav } from "./UserAccountNav";
+import { SearchBar } from "./SearchBar";
 
 export const Navbar = async () => {
 
@@ -17,6 +18,9 @@ export const Navbar = async () => {
           <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"/>
           <p className="hidden text-zinc-700 text-sm font-medium md:block">Breaddit</p>
         </Link>
+
+        {/* Search bar */}
+        <SearchBar/>
         
         {/* Sing in - Auth */}
         {

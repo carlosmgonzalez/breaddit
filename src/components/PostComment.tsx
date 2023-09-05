@@ -107,7 +107,7 @@ export const PostComment = ({comment, votesAmt, currentVote, postId}: Props) => 
           isReplying 
           ? (
               <div className="grid w-full gap-1.5">
-                <label>You'r comment</label>
+                <label>You`&aposr comment</label>
                 <div className="mt-2">
                   <Textarea 
                     id="comment" 

@@ -34,22 +34,24 @@ export default async function page({params}: {params: {postId: string} }) {
   return (
     <div>
       <div className="h-full flex flex-col sm:flex-row items-center sm:items-start justify-between">
-        <Suspense fallback={<PostVoteShell/>}>
-          {/* @ts-expect-error server component */}
-          <PostVoteServer 
-            postId={post?.id ?? cachedPost.id} 
-            getData={async () => {
-              return await prisma.post.findUnique({
-                where: {
-                  id: params.postId
-                },
-                include: {
-                  votes: true
-                }
-              })
-            }}
-          />
-        </Suspense>
+        <div className="hidden sm:flex">
+          <Suspense fallback={<PostVoteShell/>}>
+            {/* @ts-expect-error server component */}
+            <PostVoteServer 
+              postId={post?.id ?? cachedPost.id} 
+              getData={async () => {
+                return await prisma.post.findUnique({
+                  where: {
+                    id: params.postId
+                  },
+                  include: {
+                    votes: true
+                  }
+                })
+              }}
+            />
+          </Suspense>
+        </div>
 
         <div className="sm:w-0 w-full flex-1 bg-white p-4 rounded-sm">
           <p className="max-h-40 truncate text-xs text-gray-500">
@@ -61,6 +63,25 @@ export default async function page({params}: {params: {postId: string} }) {
           </h1>
 
           <EditorOutput content={post?.content ?? cachedPost.contect}/>
+
+          <div className="flex justify-center items-center w-36 mt-5 sm:hidden border rounded-md">
+            <Suspense fallback={<PostVoteShell/>}>
+              {/* @ts-expect-error server component */}
+              <PostVoteServer 
+                postId={post?.id ?? cachedPost.id} 
+                getData={async () => {
+                  return await prisma.post.findUnique({
+                    where: {
+                      id: params.postId
+                    },
+                    include: {
+                      votes: true
+                    }
+                  })
+                }}
+              />
+            </Suspense>
+          </div>
 
           <Suspense
             fallback={
