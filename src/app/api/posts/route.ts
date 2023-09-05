@@ -2,6 +2,7 @@ import { getAuthSession } from "@/lib/auth";
 import {prisma} from "@/lib/prisma";
 import { z } from "zod";
 
+// Para obtener los post: 
 
 export async function GET (req: Request) {
   try {

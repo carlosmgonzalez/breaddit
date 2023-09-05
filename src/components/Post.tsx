@@ -34,6 +34,7 @@ const Post = ({subredditName, post, commentAmt, votesAmt, currentVote}: Props) =
           initialVote={currentVote?.type}
           className="hidden sm:flex sm:flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0"
         />
+        
         <div className="w-0 flex-1">
           <div className="max-h-40 mt-1 text-xs text-gray-500">
             { 

@@ -9,6 +9,7 @@ import { ArrowBigDown, ArrowBigUp, Loader2 } from "lucide-react";
 import { PostVoteServer } from "@/components/post-vote/PostVoteServer";
 import { formatTimeToNow } from "@/lib/utils";
 import { EditorOutput } from "@/components/EditorOutput";
+import { CommentsSection } from "@/components/CommentsSection";
 
 export default async function page({params}: {params: {postId: string} }) {
   
@@ -60,8 +61,16 @@ export default async function page({params}: {params: {postId: string} }) {
           </h1>
 
           <EditorOutput content={post?.content ?? cachedPost.contect}/>
-        </div>
 
+          <Suspense
+            fallback={
+              <Loader2 className="h-5 w-5 animate-spin text-zinc-500"/>
+            }
+          >
+            {/* @ts-expect-error server commponent */}
+            <CommentsSection postId={post?.id ?? cachedPost.id}/>
+          </Suspense>
+        </div>
       </div>
     </div>
   );
