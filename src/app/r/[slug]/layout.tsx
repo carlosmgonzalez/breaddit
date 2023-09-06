@@ -66,7 +66,7 @@ export default async function Layout({children, params}: Props) {
           </div>
       
           {/* info sidebar */}
-          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last">
+          <div className="block md:block overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last">
             <div className="px-6 py-4">
               <p className="font-semibold py-3">
                 About r/{name}
